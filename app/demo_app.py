@@ -1,5 +1,7 @@
 from flask import Flask
 import platform
+import sys
+sys.path.insert(0, '/var/www/demo-app/app')
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -12,4 +14,4 @@ def hello_world():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8090)
+    app.run(host='0.0.0.0', debug=True, port=8090)
