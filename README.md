@@ -66,6 +66,11 @@ group by p.f_filename
 ORDER BY cnt DESC-
 
 
+- Usefull websites:
+  - https://www.w3schools.com/sql/default.asp
+  - https://www.db-fiddle.com/
+
+
 Python chapter:
 ---------------
 
