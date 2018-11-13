@@ -37,7 +37,6 @@ SQL chapter solution:
 ---------------------
 
 - Created SQL Schema:
-'''
 
 CREATE TABLE IF NOT EXISTS `prev` (
   `event` int(32) unsigned NOT NULL,
@@ -53,10 +52,7 @@ INSERT INTO `prev` (`event`,`f_path`, `f_filename`, `module`) VALUES
   ('4', '/aa/b.exe', 'b.exe', 'ransom');
   ('5', '/usr/sbin/xinetd', 'xinetd', 'SocketShaell')
 
-'''
-
 - SQL Query:
-'''
 
 SELECT count(p.event) as cnt,
   100*count(p.event)/(SELECT count(p1.event) FROM `prev` p1 WHERE p1.module = 'ransom') as percentage,
@@ -66,8 +62,6 @@ FROM `prev` p
 WHERE p.module = 'ransom'
 group by p.f_filename
 ORDER BY cnt DESC-
-
-'''
 
 
 Python chapter:
