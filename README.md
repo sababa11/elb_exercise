@@ -1,4 +1,8 @@
 # elb_exercise
+
+AWS chapter:
+------------
+
 Use any automation tool you'd like to accomplish the following task.
  
 The following environment should be created (and preferably also deleted) with a single shell command:
