@@ -33,6 +33,43 @@ SQL chapter:
 For example: ‘C:\Program Files\CassieUserStation\usctrl.exe’ is the most common ‘Father_path’ field for all ‘Ransom’ preventions of the ‘usctrl.exe’ Father_filename.
 
 
+SQL chapter solution:
+---------------------
+
+- Created SQL Schema:
+'''
+
+CREATE TABLE IF NOT EXISTS `prev` (
+  `event` int(32) unsigned NOT NULL,
+  `f_path` varchar(200),
+  `f_filename` varchar(200),
+  `module` varchar(200),
+  PRIMARY KEY (`event`)
+);
+INSERT INTO `prev` (`event`,`f_path`, `f_filename`, `module`) VALUES
+  ('1', '/bb/a.exe', 'a.exe', 'ransom'),
+  ('2', '/aa/a.exe', 'a.exe', 'ransom'),
+  ('3', '/aa/a.exe', 'a.exe', 'ransom'),
+  ('4', '/aa/b.exe', 'b.exe', 'ransom');
+  ('5', '/usr/sbin/xinetd', 'xinetd', 'SocketShaell')
+
+'''
+
+- SQL Query:
+'''
+
+SELECT count(p.event) as cnt,
+  100*count(p.event)/(SELECT count(p1.event) FROM `prev` p1 WHERE p1.module = 'ransom') as percentage,
+  p.f_filename,
+  (SELECT p1.f_path FROM `prev` p1 WHERE p1.f_filename = p.f_filename and p.module = 'ransom' GROUP BY p1.f_path ORDER BY count(p1.f_path) DESC limit 1) as f_common
+FROM `prev` p
+WHERE p.module = 'ransom'
+group by p.f_filename
+ORDER BY cnt DESC-
+
+'''
+
+
 Python chapter:
 ---------------
 
