@@ -72,3 +72,10 @@ Output:
 1. Print a list of file types and count of how many files are there for each type in the database.
 2. Print the oldest entry in the list.
 
+
+Python chapter solution:
+------------------------
+
+- Python script created: elb_exercise/json_parser.py
+
+
