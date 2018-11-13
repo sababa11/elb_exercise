@@ -358,6 +358,8 @@ Mappings:
       PV64: ami-77559f1a
       HVM64: ami-8e6aa0e3
       HVMG2: NOT_SUPPORTED
+
+
 Resources:
   EC2Instance:
     Type: AWS::EC2::Instance
@@ -386,6 +388,7 @@ Resources:
         ToPort: '22'
         CidrIp:
           Ref: SSHLocation
+          
 Outputs:
   InstanceId:
     Description: InstanceId of the newly created EC2 instance
