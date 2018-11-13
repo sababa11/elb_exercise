@@ -374,7 +374,6 @@ Resources:
   WebSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      # VpcId: !Ref VpcId
       GroupDescription: Enable HTTP access via user defined port
       SecurityGroupIngress:
       - CidrIp: 0.0.0.0/0
@@ -384,7 +383,6 @@ Resources:
   ELBSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      # VpcId: !Ref VpcId
       GroupDescription: Enable HTTP access via user defined port
       SecurityGroupIngress:
       - CidrIp: 0.0.0.0/0
@@ -399,7 +397,6 @@ Resources:
       SecurityGroups:
       - Ref: SSHSecurityGroup
       - Ref: WebSecurityGroup
-      - Ref: ELBSecurityGroup
       KeyName:
         Ref: KeyName
       ImageId:
@@ -428,7 +425,6 @@ Resources:
       SecurityGroups:
       - Ref: SSHSecurityGroup
       - Ref: WebSecurityGroup
-      - Ref: ELBSecurityGroup
       KeyName:
         Ref: KeyName
       ImageId:
@@ -452,6 +448,9 @@ Resources:
   MyLoadBalancer:
     Type: AWS::ElasticLoadBalancing::LoadBalancer
     Properties:
+      SecurityGroups:
+      - Ref: ELBSecurityGroup
+      - Ref: WebSecurityGroup
       AvailabilityZones: !GetAZs ''
       CrossZone: 'true'
       Instances:
@@ -480,12 +479,6 @@ Outputs:
       Fn::GetAtt:
       - EC2Instance1
       - AvailabilityZone
-  PrivateDNS1:
-    Description: Private DNSName of the newly created EC2 instance
-    Value:
-      Fn::GetAtt:
-      - EC2Instance1
-      - PrivateDnsName
   PublicDNS1:
     Description: Public DNSName of the newly created EC2 instance
     Value:
@@ -514,12 +507,6 @@ Outputs:
       Fn::GetAtt:
       - EC2Instance2
       - AvailabilityZone
-  PrivateDNS2:
-    Description: Private DNSName of the newly created EC2 instance
-    Value:
-      Fn::GetAtt:
-      - EC2Instance2
-      - PrivateDnsName
   PublicDNS2:
     Description: Public DNSName of the newly created EC2 instance
     Value:
