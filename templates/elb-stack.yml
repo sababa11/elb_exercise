@@ -361,13 +361,45 @@ Mappings:
 
 
 Resources:
-  EC2Instance:
+  SSHSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH access via port 22
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: '22'
+        ToPort: '22'
+        CidrIp:
+          Ref: SSHLocation
+  WebSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      # VpcId: !Ref VpcId
+      GroupDescription: Enable HTTP access via user defined port
+      SecurityGroupIngress:
+      - CidrIp: 0.0.0.0/0
+        FromPort: 8080
+        IpProtocol: tcp
+        ToPort: 8080
+  ELBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      # VpcId: !Ref VpcId
+      GroupDescription: Enable HTTP access via user defined port
+      SecurityGroupIngress:
+      - CidrIp: 0.0.0.0/0
+        FromPort: 80
+        IpProtocol: tcp
+        ToPort: 80
+  EC2Instance1:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType:
         Ref: InstanceType
       SecurityGroups:
-      - Ref: InstanceSecurityGroup
+      - Ref: SSHSecurityGroup
+      - Ref: WebSecurityGroup
+      - Ref: ELBSecurityGroup
       KeyName:
         Ref: KeyName
       ImageId:
@@ -378,49 +410,114 @@ Resources:
           - AWSInstanceType2Arch
           - Ref: InstanceType
           - Arch
-  InstanceSecurityGroup:
-    Type: AWS::EC2::SecurityGroup
+      Tags:
+        -
+          Key: Role
+          Value: Test Instance
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash -xe
+          yum install ec2-net-utils -y
+          ec2ifup eth1
+          service httpd start
+
+  EC2Instance2:
+    Type: AWS::EC2::Instance
     Properties:
-      GroupDescription: Enable SSH access via port 22
-      SecurityGroupIngress:
-      - IpProtocol: tcp
-        FromPort: '22'
-        ToPort: '22'
-        CidrIp:
-          Ref: SSHLocation
-          
+      InstanceType:
+        Ref: InstanceType
+      SecurityGroups:
+      - Ref: SSHSecurityGroup
+      - Ref: WebSecurityGroup
+      - Ref: ELBSecurityGroup
+      KeyName:
+        Ref: KeyName
+      ImageId:
+        Fn::FindInMap:
+        - AWSRegionArch2AMI
+        - Ref: AWS::Region
+        - Fn::FindInMap:
+          - AWSInstanceType2Arch
+          - Ref: InstanceType
+          - Arch
+      Tags:
+        -
+          Key: Role
+          Value: Test Instance
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash -xe
+          yum install ec2-net-utils -y
+          ec2ifup eth1
+          service httpd start
+
+
 Outputs:
-  InstanceId:
+  InstanceId1:
     Description: InstanceId of the newly created EC2 instance
     Value:
-      Ref: EC2Instance
-  AZ:
+      Ref: EC2Instance1
+  AZ1:
     Description: Availability Zone of the newly created EC2 instance
     Value:
       Fn::GetAtt:
-      - EC2Instance
+      - EC2Instance1
       - AvailabilityZone
-  PrivateDNS:
+  PrivateDNS1:
     Description: Private DNSName of the newly created EC2 instance
     Value:
       Fn::GetAtt:
-      - EC2Instance
+      - EC2Instance1
       - PrivateDnsName
-  PublicDNS:
+  PublicDNS1:
     Description: Public DNSName of the newly created EC2 instance
     Value:
       Fn::GetAtt:
-      - EC2Instance
+      - EC2Instance1
       - PublicDnsName
-  PrivateIP:
+  PrivateIP1:
     Description: Private IP address of the newly created EC2 instance
     Value:
       Fn::GetAtt:
-      - EC2Instance
+      - EC2Instance1
       - PrivateIp
-  PublicIP:
+  PublicIP1:
     Description: Public IP address of the newly created EC2 instance
     Value:
       Fn::GetAtt:
-      - EC2Instance
+      - EC2Instance1
+      - PublicIp
+  InstanceId2:
+    Description: InstanceId of the newly created EC2 instance
+    Value:
+      Ref: EC2Instance2
+  AZ2:
+    Description: Availability Zone of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance2
+      - AvailabilityZone
+  PrivateDNS2:
+    Description: Private DNSName of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance2
+      - PrivateDnsName
+  PublicDNS2:
+    Description: Public DNSName of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance2
+      - PublicDnsName
+  PrivateIP2:
+    Description: Private IP address of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance2
+      - PrivateIp
+  PublicIP2:
+    Description: Public IP address of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance2
       - PublicIp
