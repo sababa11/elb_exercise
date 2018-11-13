@@ -459,14 +459,14 @@ Resources:
       - Ref: EC2Instance2
       Listeners:
       - LoadBalancerPort: '80'
-      - InstancePort: '8080'
-      - Protocol: HTTP
+        InstancePort: '8080'
+        Protocol: HTTP
       HealthCheck:
-      - Target: HTTP:8080/
-      - HealthyThreshold: '10'
-      - UnhealthyThreshold: '2'
-      - Interval: '30'
-      - Timeout: '5'
+        Target: HTTP:8080/
+        HealthyThreshold: '10'
+        UnhealthyThreshold: '2'
+        Interval: '30'
+        Timeout: '5'
 
 
 Outputs:
