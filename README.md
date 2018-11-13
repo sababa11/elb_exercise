@@ -19,4 +19,27 @@ The following environment should be created (and preferably also deleted) with a
 - Bonus – check the health status of the demo service from the web server and
   return an error to the ELB when it’s down.
 
+SQL chapter:
+------------
+
+- You are given this table – preventions (key is event_guid)
+
+- Please provide a single query that outputs a single table as presented in the image below:
+  - The most common father filenames for the ‘Ransom’ module (in the image below ‘usctrl.exe’ is the most common father filename)
+  - How many preventions are there per filename (e.g., 9415 ‘Ransom’ preventions for ‘usctrl.exe’)
+  - The percentage value of the number of preventions out of the total number of preventions for the ‘Ransom’ module
+    (e.g., 56.56% of the ‘Ransom’ preventions were for ‘usctrl.exe’)
+  - common_filepath – the most common Father_path for each Father_filename in the table (Ransom preventions). 
+For example: ‘C:\Program Files\CassieUserStation\usctrl.exe’ is the most common ‘Father_path’ field for all ‘Ransom’ preventions of the ‘usctrl.exe’ Father_filename.
+
+
+Python chapter:
+---------------
+
+Input:
+JSON data from https://my-json-server.typicode.com/dim4iksh/test/db
+
+Output:
+1. Print a list of file types and count of how many files are there for each type in the database.
+2. Print the oldest entry in the list.
 
