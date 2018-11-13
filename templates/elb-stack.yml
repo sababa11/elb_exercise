@@ -413,14 +413,13 @@ Resources:
       Tags:
         -
           Key: Role
-          Value: Test Instance
+          Value: Instance1
       UserData:
         Fn::Base64: !Sub |
           #!/bin/bash -xe
           yum install ec2-net-utils -y
           ec2ifup eth1
           service httpd start
-
   EC2Instance2:
     Type: AWS::EC2::Instance
     Properties:
@@ -443,13 +442,31 @@ Resources:
       Tags:
         -
           Key: Role
-          Value: Test Instance
+          Value: Instance2
       UserData:
         Fn::Base64: !Sub |
           #!/bin/bash -xe
           yum install ec2-net-utils -y
           ec2ifup eth1
           service httpd start
+  MyLoadBalancer:
+    Type: AWS::ElasticLoadBalancing::LoadBalancer
+    Properties:
+      AvailabilityZones: !GetAZs ''
+      CrossZone: 'true'
+      Instances:
+      - Ref: EC2Instance1
+      - Ref: EC2Instance2
+      Listeners:
+      - LoadBalancerPort: '80'
+      - InstancePort: '8080'
+      - Protocol: HTTP
+      HealthCheck:
+      - Target: HTTP:8080/
+      - HealthyThreshold: '10'
+      - UnhealthyThreshold: '2'
+      - Interval: '30'
+      - Timeout: '5'
 
 
 Outputs:
