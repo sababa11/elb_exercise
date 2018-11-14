@@ -19,6 +19,21 @@ The following environment should be created (and preferably also deleted) with a
 - Bonus – check the health status of the demo service from the web server and
   return an error to the ELB when it’s down.
 
+AWS chapter solution:
+---------------------
+
+1) in order to create automated stack:
+   aws cloudformation create-stack --template-body file://templates/elb-stack.yml --stack-name name
+
+2) in order to detele cteated stack:
+   aws cloudformation delete-stack --stack-name name
+
+NOTE: make sure that aws-cli has all needed credentials.
+
+
+
+
+
 SQL chapter:
 ------------
 
@@ -32,10 +47,8 @@ SQL chapter:
   - common_filepath – the most common Father_path for each Father_filename in the table (Ransom preventions). 
 For example: ‘C:\Program Files\CassieUserStation\usctrl.exe’ is the most common ‘Father_path’ field for all ‘Ransom’ preventions of the ‘usctrl.exe’ Father_filename.
 
-
 SQL chapter solution:
 ---------------------
-
 
 - Created SQL Schema:
 
@@ -71,6 +84,9 @@ ORDER BY cnt DESC-
   - https://www.db-fiddle.com/
 
 
+
+
+
 Python chapter:
 ---------------
 
@@ -80,7 +96,6 @@ JSON data from https://my-json-server.typicode.com/dim4iksh/test/db
 Output:
 1. Print a list of file types and count of how many files are there for each type in the database.
 2. Print the oldest entry in the list.
-
 
 Python chapter solution:
 ------------------------
