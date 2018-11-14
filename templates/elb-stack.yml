@@ -420,9 +420,9 @@ Resources:
           sudo yum install git -y
           git clone https://github.com/sababa11/elb_exercise.git
           sudo cp -vfr elb_exercise/* /var/www/demo-app
-          sudo pip install Flask==1.0.2
-          sudo yum install mod_wsgi -y
-          sudo yum install httpd -y
+          sudo yum install python-pip -y
+          sudo pip-2.6 install Flask==1.0.2
+          sudo yum install httpd24 mod24_wsgi -y
           sudo cp elb_exercise/demo-app.conf /etc/httpd/conf.d
           sudo sed -i 's/Listen 80/Listen 8080/g' /etc/httpd/conf/httpd.conf
           service httpd start
@@ -458,9 +458,9 @@ Resources:
           sudo yum install git -y
           git clone https://github.com/sababa11/elb_exercise.git
           sudo cp -vfr elb_exercise/* /var/www/demo-app
-          sudo pip install Flask==1.0.2
-          sudo yum install mod_wsgi -y
-          sudo yum install httpd -y
+          sudo yum install python-pip -y
+          sudo pip-2.6 install Flask==1.0.2
+          sudo yum install httpd24 mod24_wsgi -y
           sudo cp elb_exercise/demo-app.conf /etc/httpd/conf.d
           sudo sed -i 's/Listen 80/Listen 8080/g' /etc/httpd/conf/httpd.conf
           service httpd start

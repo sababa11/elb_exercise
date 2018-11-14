@@ -8,6 +8,8 @@ git clone https://github.com/sababa11/elb_exercise.git
 
 sudo cp -vfr elb_exercise/* /var/www/demo-app
 
+# sudo yum install httpd24 mod24_wsgi
+
 sudo yum install mod_wsgi -y
 
 sudo yum install httpd -y
