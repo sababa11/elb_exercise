@@ -344,7 +344,7 @@ Mappings:
       HVMG2: ami-ca3042a5
     us-east-2:
       PV64: NOT_SUPPORTED
-      HVM64: ami-f6035893
+      HVM64: ami-f6035893 # ami-02e9bc6c99fac2746 # ami-03291866 #ami-f6035893
       HVMG2: NOT_SUPPORTED
     ca-central-1:
       PV64: NOT_SUPPORTED
@@ -379,7 +379,7 @@ Resources:
       - CidrIp: 0.0.0.0/0
         FromPort: 8080
         IpProtocol: tcp
-        ToPort: 8080
+        ToPort: 8090
   ELBSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -416,6 +416,16 @@ Resources:
           #!/bin/bash -xe
           yum install ec2-net-utils -y
           ec2ifup eth1
+          sudo mkdir -p /var/www/demo-app
+          sudo yum install git -y
+          git clone https://github.com/sababa11/elb_exercise.git
+          sudo cp -vfr elb_exercise/* /var/www/demo-app
+          sudo pip install Flask==1.0.2
+          sudo yum install mod_wsgi -y
+          sudo yum install httpd -y
+          sudo cp elb_exercise/demo-app.conf /etc/httpd/conf.d
+          sudo sed -i 's/Listen 80/Listen 8080/g' /etc/httpd/conf/httpd.conf
+          service httpd start
           service httpd start
   EC2Instance2:
     Type: AWS::EC2::Instance
@@ -444,13 +454,22 @@ Resources:
           #!/bin/bash -xe
           yum install ec2-net-utils -y
           ec2ifup eth1
+          sudo mkdir -p /var/www/demo-app
+          sudo yum install git -y
+          git clone https://github.com/sababa11/elb_exercise.git
+          sudo cp -vfr elb_exercise/* /var/www/demo-app
+          sudo pip install Flask==1.0.2
+          sudo yum install mod_wsgi -y
+          sudo yum install httpd -y
+          sudo cp elb_exercise/demo-app.conf /etc/httpd/conf.d
+          sudo sed -i 's/Listen 80/Listen 8080/g' /etc/httpd/conf/httpd.conf
           service httpd start
   MyLoadBalancer:
     Type: AWS::ElasticLoadBalancing::LoadBalancer
     Properties:
       SecurityGroups:
-      - Ref: ELBSecurityGroup
-      - Ref: WebSecurityGroup
+      - !GetAtt ELBSecurityGroup.GroupId
+      - !GetAtt WebSecurityGroup.GroupId
       AvailabilityZones: !GetAZs ''
       CrossZone: 'true'
       Instances:
