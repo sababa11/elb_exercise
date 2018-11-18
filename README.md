@@ -63,8 +63,8 @@ INSERT INTO `prev` (`event`,`f_path`, `f_filename`, `module`) VALUES
   ('1', '/bb/a.exe', 'a.exe', 'ransom'),
   ('2', '/aa/a.exe', 'a.exe', 'ransom'),
   ('3', '/aa/a.exe', 'a.exe', 'ransom'),
-  ('4', '/aa/b.exe', 'b.exe', 'ransom');
-  ('5', '/usr/sbin/xinetd', 'xinetd', 'SocketShaell')
+  ('4', '/aa/b.exe', 'b.exe', 'ransom'),
+  ('5', '/usr/sbin/xinetd', 'xinetd', 'SocketShaell');
 
 
 - SQL Query:
@@ -76,7 +76,7 @@ SELECT count(p.event) as cnt,
 FROM `prev` p
 WHERE p.module = 'ransom'
 group by p.f_filename
-ORDER BY cnt DESC-
+ORDER BY cnt DESC;
 
 
 - Usefull websites:
