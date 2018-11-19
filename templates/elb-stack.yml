@@ -426,6 +426,7 @@ Resources:
           sudo cp elb_exercise/demo-app.conf /etc/httpd/conf.d
           sudo sed -i 's/Listen 80/Listen 8080/g' /etc/httpd/conf/httpd.conf
           service httpd start
+          service httpd enable
   EC2Instance2:
     Type: AWS::EC2::Instance
     Properties:
@@ -463,6 +464,7 @@ Resources:
           sudo cp elb_exercise/demo-app.conf /etc/httpd/conf.d
           sudo sed -i 's/Listen 80/Listen 8080/g' /etc/httpd/conf/httpd.conf
           service httpd start
+          service httpd enable
   MyLoadBalancer:
     Type: AWS::ElasticLoadBalancing::LoadBalancer
     Properties:
