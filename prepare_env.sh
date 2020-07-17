@@ -14,7 +14,7 @@ sudo yum install mod_wsgi -y
 
 sudo yum install httpd -y
 
-sudo cp elb_exercise/demo-app.conf /etc/httpd/conf.d
+sudo cp palo_alto_elb_exercise/demo-app.conf /etc/httpd/conf.d
 
 # changing listening port from 80 to 8080 in /etc/httpd/conf/httpd.conf
 sudo sed -i 's/Listen 80/Listen 8080/g' /etc/httpd/conf/httpd.conf
