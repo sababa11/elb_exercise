@@ -20,3 +20,5 @@ sudo cp palo_alto_elb_exercise/demo-app.conf /etc/httpd/conf.d
 sudo sed -i 's/Listen 80/Listen 8080/g' /etc/httpd/conf/httpd.conf
 
 sudo systemctl restart httpd
+
+sudo systemctl enable httpd
