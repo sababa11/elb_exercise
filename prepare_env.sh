@@ -4,9 +4,9 @@ sudo mkdir -p /var/www/demo-app
 
 sudo yum install git -y
 
-git clone https://github.com/sababa11/elb_exercise.git
+git clone https://github.com/sababa11/palo_alto_elb_exercise.git
 
-sudo cp -vfr elb_exercise/* /var/www/demo-app
+sudo cp -vfr palo_alto_elb_exercise/* /var/www/demo-app
 
 # sudo yum install httpd24 mod24_wsgi
 
