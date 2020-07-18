@@ -6,7 +6,7 @@ sys.path.insert(0, '/var/www/demo-app/app')
 
 app = Flask(__name__)
 app.config.from_object(__name__)
-print "configuration finished"
+print("configuration finished")
 
 
 @app.route('/')
