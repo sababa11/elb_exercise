@@ -19,7 +19,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='elb_exercise',
-    version=__version__,
+    version='0.1',
     description='cloud package',
     long_description=long_description,
 

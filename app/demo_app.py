@@ -13,10 +13,10 @@ print("configuration finished")
 def hello_world():
     return platform.node()
 
+
 @app.route('/version')
-def hello_world():
-    from ..setup import __version__ as version
-    return version
+def version():
+    return 'version is 0.1'
 
 
 if __name__ == '__main__':
