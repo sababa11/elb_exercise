@@ -13,6 +13,11 @@ print("configuration finished")
 def hello_world():
     return platform.node()
 
+@app.route('/version')
+def hello_world():
+    from ..setup import __version__ as version
+    return version
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=8090)

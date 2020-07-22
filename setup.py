@@ -9,6 +9,7 @@ from setuptools import setup, find_packages
 # To use a consistent encoding
 from codecs import open
 from os import path
+__version__ = '0.1'
 
 here = path.abspath(path.dirname(__file__))
 
@@ -18,7 +19,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='elb_exercise',
-    version='0.1',
+    version=__version__,
     description='cloud package',
     long_description=long_description,
 
