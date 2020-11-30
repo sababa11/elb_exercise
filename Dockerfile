@@ -5,6 +5,6 @@ ENV MONGO_DB_USERNAME=admin \
 
 RUN mkdir -p /home/app
 
-copy app/ /home/app
+copy ./app /home/app
 
 CMD ["demo-app.py"]
