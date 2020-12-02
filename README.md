@@ -1,4 +1,4 @@
-## elb_exercise
+# elb_exercise
 
 AWS chapter:
 ------------
