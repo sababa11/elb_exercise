@@ -24,6 +24,6 @@ setup(
 
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
 
-    install_requires=['Flask==1.0.2']
+    install_requires=['Flask==2.3.2']
 
 )
